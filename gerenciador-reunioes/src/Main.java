@@ -43,7 +43,7 @@ public class Main {
 			System.out.println("Bem-vindo, participante " + p + ".");
 			System.out.println();
 
-			System.out.println("O evento a que você foi convidado pode ocorrer entre " + inicio.toString() + " e " + fim.toString() + ".");
+			System.out.println("O evento a que você foi convidado pode ocorrer entre " + dateFormat.format(reuniao.getDataInicial()) + " e " + dateFormat.format(reuniao.getDataFinal()) + ".");
 			System.out.println("Escolha um período entre as duas datas em que você pode participar do evento.");
 			System.out.print("Insira a data e horário (dd/MM/aaaa HH:mm) em que se inicia esse período: ");
 			LocalDateTime inicioDisp = LocalDateTime.parse(s.nextLine(), dateTimeFormat);

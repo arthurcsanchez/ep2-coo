@@ -22,4 +22,5 @@ public class GerenciadorDeSalas {
 	public Collection<Reserva> reservaParaSala(String nomeSala) {}
 
 	public void imprimeReservasDaSala(String nomeSala) {}
+
 }
