@@ -1,13 +1,12 @@
 public class Sala {
 
 	private final String nome;
-	private final String local;
+	private String local;
 	private int capacidade;
 	private String observacoes;
 
-	public Sala(String nome, String local, int capacidade, String observacoes) {
+	public Sala(String nome, int capacidade, String observacoes) {
 		this.nome = nome;
-		this.local = local;
 		this.capacidade = capacidade;
 		this.observacoes = observacoes;
 	}
@@ -18,6 +17,10 @@ public class Sala {
 
 	public String getLocal() {
 		return local;
+	}
+
+	public void setLocal(String novo) {
+		local = novo;
 	}
 
 	public int getCapacidade() {
