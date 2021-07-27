@@ -6,16 +6,15 @@ public class MarcadorDeReuniao {
 
 	private LocalDateTime dataInicial;
 	private LocalDateTime dataFinal;
-	private Map<String, ArrayList<LocalDateTime>> participantes = new TreeMap<>();  // true indica que comparecerá, false indica incerteza ou negativa
-	private LocalDateTime dataInicialSobreposta;
-	private LocalDateTime dataFinalSobreposta;
+	private final Map<String, ArrayList<LocalDateTime>> participantes = new TreeMap<>();  // talvez tenha q tirar final
+	private final DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
-	/* construtor */
+	// construtor
 	public MarcadorDeReuniao(LocalDate dataInicial, LocalDate dataFinal, Collection<String> listaDeParticipantes) {
 		marcarReuniaoEntre(dataInicial, dataFinal, listaDeParticipantes);
 	}
 
-	/* métodos do enunciado */
+	// método do enunciado
 	public void marcarReuniaoEntre(LocalDate dataInicial, LocalDate dataFinal, Collection<String> listaDeParticipantes) {
 		this.dataInicial = dataInicial.atStartOfDay();
 		this.dataFinal = dataFinal.atStartOfDay();
@@ -24,46 +23,63 @@ public class MarcadorDeReuniao {
 		}
 	}
 
+	// método do enunciado
 	public void indicaDisponibilidadeDe(String participante, LocalDateTime inicio, LocalDateTime fim) {
 		participantes.get(participante).add(inicio);
 		participantes.get(participante).add(fim);
 	}
 
+	// método do enunciado
 	public void mostrarSobreposicao() {
-		LocalDateTime menorData = dataInicial;
-		LocalDateTime maiorData = dataFinal;
-		DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-		for (Map.Entry<String, ArrayList<LocalDateTime>> e : participantes.entrySet()) {
-			if (e.getValue().get(0).isAfter(menorData)) {
-				menorData = e.getValue().get(0);
-			}
-			if (e.getValue().get(1).isBefore(maiorData)) {
-				maiorData = e.getValue().get(1);
-			}
-		}
+		System.out.println("---- Horários possíveis para a reunião: ----");
+		Iterator<Map.Entry<String, ArrayList<LocalDateTime>>> it = participantes.entrySet().iterator();
+		mostrarSobreposicao(0, dataInicial, dataFinal, it.next(), it, 1);
+	}
+
+	// auxiliar
+	private void mostrarSobreposicao(int i, LocalDateTime menorData, LocalDateTime maiorData, Map.Entry<String, ArrayList<LocalDateTime>> participante, Iterator<Map.Entry<String, ArrayList<LocalDateTime>>> iterador, int cont) {
 		if (menorData.isAfter(maiorData)) {
-			System.out.println("Infelizmente os participantes selecionaram horários incompatíveis.");
-			System.out.println("Tente novamente com outro período.");
-		} else {
-			this.dataInicialSobreposta = menorData;
-			this.dataFinalSobreposta = maiorData;
-			System.out.println("O horário ideal é:");
-			System.out.println("De " + dateTimeFormat.format(menorData) + " a " + dateTimeFormat.format(maiorData) + ".");
+			return;
+		}
+		LocalDateTime novaMenorData = menorData;
+		LocalDateTime novaMaiorData = maiorData;
+
+		if (participante.getValue().get(2*i).isAfter(menorData)) {
+			novaMenorData = participante.getValue().get(2*i);
+		}
+		if (participante.getValue().get(2*i+1).isBefore(maiorData)) {
+			novaMaiorData = participante.getValue().get(2*i+1);
+		}
+
+		boolean caughtException = false;
+		try {
+			mostrarSobreposicao(0, novaMenorData, novaMaiorData, iterador.next(), iterador, cont + 1);
+		} catch (NoSuchElementException ignored) {
+			caughtException = true;
+			System.out.println("De " + dateTimeFormat.format(novaMenorData) + " a " + dateTimeFormat.format(novaMaiorData) + ".");
+		}
+		if (!caughtException) {
+			try {
+				if (novaMenorData.isEqual(participante.getValue().get(2*i))) novaMenorData = menorData;
+				if (novaMaiorData.isEqual(participante.getValue().get(2*i+1))) novaMaiorData = maiorData;
+				Iterator<Map.Entry<String, ArrayList<LocalDateTime>>> novoIt = participantes.entrySet().iterator();
+				for (int j = 0; j < cont; j++) {
+					novoIt.next();
+				}
+				mostrarSobreposicao(++i, novaMenorData, novaMaiorData, participante, novoIt, cont + 1);
+			} catch (IndexOutOfBoundsException ignored) {
+			} catch (NoSuchElementException ignored) {
+				System.out.println("De " + dateTimeFormat.format(novaMenorData) + " a " + dateTimeFormat.format(novaMaiorData) + ".");
+			}
 		}
 	}
 
-	public LocalDateTime getDataInicialSobreposta() {
-		return this.dataInicialSobreposta;
-	}
-
-	public LocalDateTime getDataFinalSobreposta() {
-		return this.dataFinalSobreposta;
-	}
-
+	// getter
 	public LocalDateTime getDataInicial() {
 		return this.dataInicial;
 	}
 
+	// getter
 	public LocalDateTime getDataFinal() {
 		return this.dataFinal;
 	}
