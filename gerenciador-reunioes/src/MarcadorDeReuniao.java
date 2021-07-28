@@ -56,7 +56,7 @@ public class MarcadorDeReuniao {
 			mostrarSobreposicao(0, novaMenorData, novaMaiorData, iterador.next(), iterador, cont + 1);
 		} catch (NoSuchElementException ignored) {
 			caughtException = true;
-			System.out.println("De " + dateTimeFormat.format(novaMenorData) + " a " + dateTimeFormat.format(novaMaiorData) + ".");
+			System.out.println("-> De " + dateTimeFormat.format(novaMenorData) + " a " + dateTimeFormat.format(novaMaiorData) + ".");
 		}
 		if (!caughtException) {
 			try {
@@ -69,7 +69,7 @@ public class MarcadorDeReuniao {
 				mostrarSobreposicao(++i, novaMenorData, novaMaiorData, participante, novoIt, cont + 1);
 			} catch (IndexOutOfBoundsException ignored) {
 			} catch (NoSuchElementException ignored) {
-				System.out.println("De " + dateTimeFormat.format(novaMenorData) + " a " + dateTimeFormat.format(novaMaiorData) + ".");
+				System.out.println("-> De " + dateTimeFormat.format(novaMenorData) + " a " + dateTimeFormat.format(novaMaiorData) + ".");
 			}
 		}
 	}
