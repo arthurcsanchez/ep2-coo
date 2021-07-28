@@ -1,3 +1,4 @@
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,5 +55,13 @@ public class Sala {
 
 	public List<Reserva> getListaReservas() {
 		return listaReservas;
+	}
+
+	public boolean verificarSeSalaEstaOcupada(LocalDateTime inicio, LocalDateTime fim) {
+		for (Reserva r : listaReservas) {
+			if (r.inicio().isEqual(inicio) || r.fim().isEqual(fim)) return true;
+			if (r.inicio().isBefore(fim) && r.fim().isAfter(inicio)) return true;
+		}
+		return false;
 	}
 }

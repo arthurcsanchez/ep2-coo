@@ -41,7 +41,13 @@ public class GerenciadorDeSalas {
 	}
 
 	// métodos do enunciado
-	public Reserva reservaSalaChamada(String nomeSala, LocalDateTime dataInicial, LocalDateTime dataFinal) {
+	public Reserva reservaSalaChamada(String nomeSala, LocalDateTime dataInicial, LocalDateTime dataFinal) throws NonExistentSalaException, OccupiedSalaException {
+		if (!chamadaSalas.containsKey(nomeSala)) {
+			throw new NonExistentSalaException("Não existe sala com o nome " + nomeSala);
+		}
+		if (chamadaSalas.get(nomeSala).verificarSeSalaEstaOcupada(dataInicial, dataFinal)) {
+			throw new OccupiedSalaException("A sala " + nomeSala + " está reservada no período entre " + dateTimeFormat.format(dataInicial) + " e " + dateTimeFormat.format(dataFinal));
+		}
 		Reserva r = new Reserva(chamadaSalas.get(nomeSala), dataInicial, dataFinal);
 		chamadaSalas.get(nomeSala).getListaReservas().add(r);
 		chamadaReservas.add(r);
