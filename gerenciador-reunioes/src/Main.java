@@ -35,8 +35,16 @@ public class Main {
 		fimDisp = LocalDateTime.parse("28/07/2021 12:00", dateTimeFormat);
 		reuniao.indicaDisponibilidadeDe("maria@outlook.com", inicioDisp, fimDisp);
 
+		inicioDisp = LocalDateTime.parse("28/07/2021 17:00", dateTimeFormat);
+		fimDisp = LocalDateTime.parse("29/07/2021 12:00", dateTimeFormat);
+		reuniao.indicaDisponibilidadeDe("maria@outlook.com", inicioDisp, fimDisp);
+
 		inicioDisp = LocalDateTime.parse("26/07/2021 07:00", dateTimeFormat);
-		fimDisp = LocalDateTime.parse("29/07/2021 20:00", dateTimeFormat);
+		fimDisp = LocalDateTime.parse("28/07/2021 14:00", dateTimeFormat);
+		reuniao.indicaDisponibilidadeDe("ana@icloud.com", inicioDisp, fimDisp);
+
+		inicioDisp = LocalDateTime.parse("28/07/2021 19:00", dateTimeFormat);
+		fimDisp = LocalDateTime.parse("29/07/2021 03:00", dateTimeFormat);
 		reuniao.indicaDisponibilidadeDe("ana@icloud.com", inicioDisp, fimDisp);
 
 
