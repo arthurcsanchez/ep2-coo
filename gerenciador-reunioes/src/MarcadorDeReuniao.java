@@ -51,6 +51,20 @@ public class MarcadorDeReuniao {
 			novaMaiorData = participante.getValue().get(2*i+1);
 		}
 
+		if (novaMenorData.isAfter(novaMaiorData)) {
+			try {
+				Iterator<Map.Entry<String, ArrayList<LocalDateTime>>> novoIt1 = participantes.entrySet().iterator();
+				for (int j = 0; j < cont; j++) {
+					novoIt1.next();
+				}
+				mostrarSobreposicao(++i, menorData, maiorData, participante, novoIt1, cont);
+			} catch (IndexOutOfBoundsException ignored) {
+			} catch (NoSuchElementException ignored) {
+				System.out.println("-> De " + dateTimeFormat.format(novaMenorData) + " a " + dateTimeFormat.format(novaMaiorData) + ".");
+			}
+			return;
+		}
+
 		boolean caughtException = false;
 		try {
 			mostrarSobreposicao(0, novaMenorData, novaMaiorData, iterador.next(), iterador, cont + 1);
@@ -62,11 +76,11 @@ public class MarcadorDeReuniao {
 			try {
 				if (novaMenorData.isEqual(participante.getValue().get(2*i))) novaMenorData = menorData;
 				if (novaMaiorData.isEqual(participante.getValue().get(2*i+1))) novaMaiorData = maiorData;
-				Iterator<Map.Entry<String, ArrayList<LocalDateTime>>> novoIt = participantes.entrySet().iterator();
+				Iterator<Map.Entry<String, ArrayList<LocalDateTime>>> novoIt2 = participantes.entrySet().iterator();
 				for (int j = 0; j < cont; j++) {
-					novoIt.next();
+					novoIt2.next();
 				}
-				mostrarSobreposicao(++i, novaMenorData, novaMaiorData, participante, novoIt, cont + 1);
+				mostrarSobreposicao(++i, novaMenorData, novaMaiorData, participante, novoIt2, cont);  // antes era cont + 1
 			} catch (IndexOutOfBoundsException ignored) {
 			} catch (NoSuchElementException ignored) {
 				System.out.println("-> De " + dateTimeFormat.format(novaMenorData) + " a " + dateTimeFormat.format(novaMaiorData) + ".");
