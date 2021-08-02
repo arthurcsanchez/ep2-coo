@@ -9,6 +9,8 @@ public class Main {
 
 		/*========= REUNIÃO 1 =========*/
 
+		System.out.println("/==============/ REUNIÃO 1 /==============/");
+
 		/* TESTE PARTE 1*/
 		DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
@@ -54,26 +56,26 @@ public class Main {
 
 
 		/* TESTE PARTE 2*/
-		GerenciadorDeSalas m = new GerenciadorDeSalas();
-		m.adicionaSalaChamada("Auditório Azul", 200, "Auditório maior.");
-		m.adicionaSalaChamada("Auditório Vermelho", 100, "Auditório menor.");
-		for (Sala s : m.listaDeSalas()) {
+		GerenciadorDeSalas m1 = new GerenciadorDeSalas();
+		m1.adicionaSalaChamada("Auditório Azul", 200, "Auditório maior.");
+		m1.adicionaSalaChamada("Auditório Vermelho", 100, "Auditório menor.");
+		for (Sala s : m1.listaDeSalas()) {
 			System.out.println(s.getNome() + "/" + s.getCapacidade() + "/" + s.getObservacoes());
 		}
 		System.out.println();
-		m.reservaSalaChamada("Auditório Vermelho", LocalDateTime.parse("29/07/2021 18:00", dateTimeFormat), LocalDateTime.parse("29/07/2021 23:00", dateTimeFormat));
-		m.reservaSalaChamada("Auditório Vermelho", LocalDateTime.parse("28/07/2021 12:30", dateTimeFormat), LocalDateTime.parse("28/07/2021 18:00", dateTimeFormat));
-		m.reservaSalaChamada("Auditório Azul", LocalDateTime.parse("16/08/2021 14:00", dateTimeFormat), LocalDateTime.parse("16/08/2021 19:00", dateTimeFormat));
-		m.reservaSalaChamada("Auditório Azul", LocalDateTime.parse("17/08/2021 13:20", dateTimeFormat), LocalDateTime.parse("17/08/2021 16:40", dateTimeFormat));
+		m1.reservaSalaChamada("Auditório Vermelho", LocalDateTime.parse("29/07/2021 18:00", dateTimeFormat), LocalDateTime.parse("29/07/2021 23:00", dateTimeFormat));
+		m1.reservaSalaChamada("Auditório Vermelho", LocalDateTime.parse("28/07/2021 12:30", dateTimeFormat), LocalDateTime.parse("28/07/2021 18:00", dateTimeFormat));
+		m1.reservaSalaChamada("Auditório Azul", LocalDateTime.parse("16/08/2021 14:00", dateTimeFormat), LocalDateTime.parse("16/08/2021 19:00", dateTimeFormat));
+		m1.reservaSalaChamada("Auditório Azul", LocalDateTime.parse("17/08/2021 13:20", dateTimeFormat), LocalDateTime.parse("17/08/2021 16:40", dateTimeFormat));
 
-		m.imprimeReservasDaSala("Auditório Vermelho");
-		m.imprimeReservasDaSala("Auditório Azul");
+		m1.imprimeReservasDaSala("Auditório Vermelho");
+		m1.imprimeReservasDaSala("Auditório Azul");
 		System.out.println();
-		m.cancelaReserva(m.reservaParaSala("Auditório Azul").iterator().next());
-		m.imprimeReservasDaSala("Auditório Azul");
+		m1.cancelaReserva(m1.reservaParaSala("Auditório Azul").iterator().next());
+		m1.imprimeReservasDaSala("Auditório Azul");
 		System.out.println();
-		m.removeSalaChamada("Auditório Azul");
-		for (Sala s : m.listaDeSalas()) {
+		m1.removeSalaChamada("Auditório Azul");
+		for (Sala s : m1.listaDeSalas()) {
 			System.out.println(s.getNome() + "/" + s.getCapacidade() + "/" + s.getObservacoes());
 		}
 
@@ -81,6 +83,7 @@ public class Main {
 
 
 		/*========= REUNIÃO 2 =========*/
+
 		System.out.println("/==============/ REUNIÃO 2 /==============/");
 
 		/* TESTE PARTE 1 */
@@ -135,5 +138,26 @@ public class Main {
 		r2.indicaDisponibilidadeDe("valeria@yahoo.com", ip2, fp2);
 
 		r2.mostrarSobreposicao();
+
+
+		/* TESTE PARTE 2 */
+		GerenciadorDeSalas m2 = new GerenciadorDeSalas();
+		m2.adicionaSalaChamada("Sala de Aula", 20, "Tamanho ideal.");
+		m2.adicionaSalaChamada("Laboratório de Informática", 10, "Poucos Equipamentos.");
+		m2.adicionaSalaChamada("Quadra", 50, "Muito espaço.");
+		for (Sala s : m2.listaDeSalas()) {
+			System.out.println(s.getNome() + "/" + s.getCapacidade() + "/" + s.getObservacoes());
+		}
+		System.out.println();
+		m2.reservaSalaChamada("Sala de Aula", LocalDateTime.parse("15/11/2021 18:00",dateTimeFormat), LocalDateTime.parse("15/11/2021 23:00", dateTimeFormat));
+		m2.reservaSalaChamada("Sala de Aula", LocalDateTime.parse("17/11/2021 12:30", dateTimeFormat), LocalDateTime.parse("17/11/2021 23:00", dateTimeFormat));
+		m2.reservaSalaChamada("Laboratório de Informática", LocalDateTime.parse("16/11/2021 14:00", dateTimeFormat), LocalDateTime.parse("16/11/2021 19:00", dateTimeFormat));
+		m2.reservaSalaChamada("Quadra", LocalDateTime.parse("17/11/2021 13:20", dateTimeFormat), LocalDateTime.parse("17/11/2021 16:40", dateTimeFormat));
+
+		m2.imprimeReservasDaSala("Sala de Aula");
+		m2.imprimeReservasDaSala("Laboratório de Informática");
+		m2.imprimeReservasDaSala("Quadra");
+		System.out.println();
+		m2.reservaSalaChamada("Sala de Aula", LocalDateTime.parse("17/11/2021 19:00",dateTimeFormat), LocalDateTime.parse("17/11/2021 21:00", dateTimeFormat));
 	}
 }
