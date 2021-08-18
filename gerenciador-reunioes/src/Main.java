@@ -1,5 +1,3 @@
-import javax.swing.text.DateFormatter;
-import java.io.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -52,7 +50,7 @@ public class Main {
 		r1.indicaDisponibilidadeDe("ana@icloud.com", ip1, fp1);
 
 
-		r1.mostrarSobreposicao();
+		r1.mostraSobreposicao();
 
 
 		/* TESTE PARTE 2*/
@@ -137,7 +135,7 @@ public class Main {
 		fp2 = LocalDateTime.parse("17/11/2021 23:00", dateTimeFormat);
 		r2.indicaDisponibilidadeDe("valeria@yahoo.com", ip2, fp2);
 
-		r2.mostrarSobreposicao();
+		r2.mostraSobreposicao();
 
 
 		/* TESTE PARTE 2 */
