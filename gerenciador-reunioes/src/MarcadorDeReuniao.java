@@ -40,6 +40,9 @@ public class MarcadorDeReuniao {
 		if (inicio.isAfter(dataFinal)) {
 			throw new ImpossibleDisponibilidadeException("O horário de inicio selecionado " + inicio + " é posterior ao fim estipulado pelos organizadores " + dataFinal);
 		}
+		if (!participantes.containsKey(participante)) {
+			throw new ImpossibleDisponibilidadeException("O participante " + participante + " não foi convidado para esta reunião");
+		}
 		if (inicio.isBefore(dataInicial)) {
 			inicio = dataInicial;
 		}
