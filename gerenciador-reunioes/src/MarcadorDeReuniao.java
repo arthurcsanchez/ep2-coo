@@ -50,11 +50,29 @@ public class MarcadorDeReuniao {
 		participantes.get(participante).add(fim);
 	}
 
+	private boolean houveImpressao = false;
+
 	// método do enunciado
 	public void mostraSobreposicao() {
+		System.out.println("---- Disponibilidades dos participantes da reunião: ----");
+		for (Map.Entry<String, ArrayList<LocalDateTime>> e : participantes.entrySet()) {
+			System.out.print(e.getKey() + ": ");
+			int c = 0;
+			for (LocalDateTime l : e.getValue()) {
+				if (c % 2 == 0) System.out.print("(" + dateTimeFormat.format(l) + ")-");
+				else System.out.print("(" + dateTimeFormat.format(l) + ")   ");
+				c++;
+			}
+			System.out.println();
+		}
+		System.out.println();
 		System.out.println("---- Horários possíveis para a reunião: ----");
 		Iterator<Map.Entry<String, ArrayList<LocalDateTime>>> it = participantes.entrySet().iterator();
 		mostraSobreposicao(0, dataInicial, dataFinal, it.next(), it, 1);
+		if (!houveImpressao) {
+			System.out.println("Não há sobreposição entre as disponibilidades dos participantes da reunião");
+		}
+		System.out.println();
 	}
 
 	// auxiliar
@@ -81,6 +99,7 @@ public class MarcadorDeReuniao {
 				mostraSobreposicao(++i, menorData, maiorData, participante, novoIt1, cont);
 			} catch (IndexOutOfBoundsException ignored) {
 			} catch (NoSuchElementException ignored) {
+				houveImpressao = true;
 				System.out.println("-> De " + dateTimeFormat.format(novaMenorData) + " a " + dateTimeFormat.format(novaMaiorData) + ".");
 			}
 			return;
@@ -91,6 +110,7 @@ public class MarcadorDeReuniao {
 			mostraSobreposicao(0, novaMenorData, novaMaiorData, iterador.next(), iterador, cont + 1);
 		} catch (NoSuchElementException ignored) {
 			caughtException = true;
+			houveImpressao = true;
 			System.out.println("-> De " + dateTimeFormat.format(novaMenorData) + " a " + dateTimeFormat.format(novaMaiorData) + ".");
 		}
 		if (!caughtException) {
@@ -104,6 +124,7 @@ public class MarcadorDeReuniao {
 				mostraSobreposicao(++i, novaMenorData, novaMaiorData, participante, novoIt2, cont);  // antes era cont + 1
 			} catch (IndexOutOfBoundsException ignored) {
 			} catch (NoSuchElementException ignored) {
+				houveImpressao = true;
 				System.out.println("-> De " + dateTimeFormat.format(novaMenorData) + " a " + dateTimeFormat.format(novaMaiorData) + ".");
 			}
 		}
