@@ -34,11 +34,17 @@ public class MarcadorDeReuniao {
 		if (inicio.isEqual(fim)) {
 			throw new ImpossibleDisponibilidadeException("Os horários de início e fim selecionados são iguais a " + inicio + ", o que não determina um período");
 		}
+		if (fim.isBefore(dataInicial)) {
+			throw new ImpossibleDisponibilidadeException("O horário de fim selecionado " + fim + " é anterior ao início estipulado pelos organizadores " + dataInicial);
+		}
+		if (inicio.isAfter(dataFinal)) {
+			throw new ImpossibleDisponibilidadeException("O horário de inicio selecionado " + inicio + " é posterior ao fim estipulado pelos organizadores " + dataFinal);
+		}
 		if (inicio.isBefore(dataInicial)) {
-			throw new ImpossibleDisponibilidadeException("O horário de início selecionado " + inicio + " é anterior ao início estipulado pelos organizadores " + dataInicial);
+			inicio = dataInicial;
 		}
 		if (fim.isAfter(dataFinal)) {
-			throw new ImpossibleDisponibilidadeException("O horário de fim selecionado " + fim + " é posterior ao fim estipulado pelos organizadores " + dataFinal);
+			fim = dataFinal;
 		}
 		participantes.get(participante).add(inicio);
 		participantes.get(participante).add(fim);
