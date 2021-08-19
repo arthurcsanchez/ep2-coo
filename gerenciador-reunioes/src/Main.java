@@ -3,7 +3,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Main {
-	public static void main(String[] args) throws OccupiedSalaException, NonExistentSalaException {
+	public static void main(String[] args) throws ImpossibleSalaException, ImpossibleDisponibilidadeException, ImpossibleReservaException {
 
 		/*========= REUNIÃO 1 =========*/
 
