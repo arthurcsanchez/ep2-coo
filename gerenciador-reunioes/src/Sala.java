@@ -4,11 +4,15 @@ import java.util.List;
 
 public class Sala {
 
-	private final String nome;
+	private String nome;
 	private String local;
 	private int capacidade;
 	private String observacoes;
 	private final List<Reserva> listaReservas;
+
+	public Sala() {
+		listaReservas = new ArrayList<>();
+	}
 
 	public Sala(String nome, int capacidade, String observacoes) {
 		this.nome = nome;
@@ -19,6 +23,10 @@ public class Sala {
 
 	public String getNome() {
 		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public String getLocal() {

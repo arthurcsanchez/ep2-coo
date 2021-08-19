@@ -21,7 +21,10 @@ public class GerenciadorDeSalas {
 	}
 
 	// métodos do enunciado
-	public void removeSalaChamada(String nomeSala) {
+	public void removeSalaChamada(String nomeSala) throws ImpossibleSalaException {
+		if (!chamadaSalas.containsKey(nomeSala)) {
+			throw new ImpossibleSalaException("Não existe sala com o nome " + nomeSala);
+		}
 		chamadaSalas.remove(nomeSala);
 		chamadaReservas.removeIf(r -> r.sala().getNome().equals(nomeSala));
 	}
@@ -41,12 +44,18 @@ public class GerenciadorDeSalas {
 	}
 
 	// métodos do enunciado
-	public Reserva reservaSalaChamada(String nomeSala, LocalDateTime dataInicial, LocalDateTime dataFinal) throws NonExistentSalaException, OccupiedSalaException {
+	public Reserva reservaSalaChamada(String nomeSala, LocalDateTime dataInicial, LocalDateTime dataFinal) throws ImpossibleSalaException, ImpossibleReservaException {
 		if (!chamadaSalas.containsKey(nomeSala)) {
-			throw new NonExistentSalaException("Não existe sala com o nome " + nomeSala);
+			throw new ImpossibleSalaException("Não existe sala com o nome " + nomeSala);
+		}
+		if (dataInicial.isAfter(dataFinal)) {
+			throw new ImpossibleReservaException("A data inicial inserida é posterior à data final inserida");
+		}
+		if (dataInicial.isEqual(dataFinal)) {
+			throw new ImpossibleReservaException("A data inicial inserida é igual à data final inserida");
 		}
 		if (chamadaSalas.get(nomeSala).verificarSeSalaEstaOcupada(dataInicial, dataFinal)) {
-			throw new OccupiedSalaException("A sala " + nomeSala + " está reservada no período entre " + dateTimeFormat.format(dataInicial) + " e " + dateTimeFormat.format(dataFinal));
+			throw new ImpossibleSalaException("A sala " + nomeSala + " está reservada no período entre " + dateTimeFormat.format(dataInicial) + " e " + dateTimeFormat.format(dataFinal));
 		}
 		Reserva r = new Reserva(chamadaSalas.get(nomeSala), dataInicial, dataFinal);
 		chamadaSalas.get(nomeSala).getListaReservas().add(r);
@@ -55,7 +64,10 @@ public class GerenciadorDeSalas {
 	}
 
 	// métodos do enunciado
-	public void cancelaReserva(Reserva cancelada) {
+	public void cancelaReserva(Reserva cancelada) throws ImpossibleReservaException {
+		if (!chamadaSalas.get(cancelada.sala().getNome()).getListaReservas().contains(cancelada)) {
+			throw new ImpossibleReservaException("A reserva cuja remoção foi solicitada não existe");
+		}
 		chamadaSalas.get(cancelada.sala().getNome()).removeReserva(cancelada);
 		chamadaReservas.remove(cancelada);
 	}

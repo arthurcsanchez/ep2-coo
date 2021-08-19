@@ -2,9 +2,11 @@ import java.time.LocalDateTime;
 
 public class Reserva {
 
-	private final Sala sala;
-	private final LocalDateTime inicio;
-	private final LocalDateTime fim;
+	private Sala sala;
+	private LocalDateTime inicio;
+	private LocalDateTime fim;
+
+	public Reserva() {}
 
 	public Reserva(Sala sala, LocalDateTime inicio, LocalDateTime fim) {
 		this.sala = sala;
@@ -22,5 +24,17 @@ public class Reserva {
 
 	public LocalDateTime fim() {
 		return fim;
+	}
+
+	public Sala getSala() {
+		return sala();
+	}
+
+	public LocalDateTime getInicio() {
+		return inicio();
+	}
+
+	public LocalDateTime getFim() {
+		return fim();
 	}
 }

@@ -27,18 +27,18 @@ public class MarcadorDeReuniao {
 	}
 
 	// método do enunciado
-	public void indicaDisponibilidadeDe(String participante, LocalDateTime inicio, LocalDateTime fim) throws ImpossibleAvailabilityException {
+	public void indicaDisponibilidadeDe(String participante, LocalDateTime inicio, LocalDateTime fim) throws ImpossibleDisponibilidadeException {
 		if (inicio.isAfter(fim)) {
-			throw new ImpossibleAvailabilityException("O período entre " + inicio + " e " + fim + " não é possível");
+			throw new ImpossibleDisponibilidadeException("O período entre " + inicio + " e " + fim + " não é possível");
 		}
 		if (inicio.isEqual(fim)) {
-			throw new ImpossibleAvailabilityException("Os horários de início e fim selecionados são iguais a " + inicio + ", o que não determina um período");
+			throw new ImpossibleDisponibilidadeException("Os horários de início e fim selecionados são iguais a " + inicio + ", o que não determina um período");
 		}
 		if (inicio.isBefore(dataInicial)) {
-			throw new ImpossibleAvailabilityException("O horário de início selecionado " + inicio + " é anterior ao início estipulado pelos organizadores " + dataInicial);
+			throw new ImpossibleDisponibilidadeException("O horário de início selecionado " + inicio + " é anterior ao início estipulado pelos organizadores " + dataInicial);
 		}
 		if (fim.isAfter(dataFinal)) {
-			throw new ImpossibleAvailabilityException("O horário de fim selecionado " + fim + " é posterior ao fim estipulado pelos organizadores " + dataFinal);
+			throw new ImpossibleDisponibilidadeException("O horário de fim selecionado " + fim + " é posterior ao fim estipulado pelos organizadores " + dataFinal);
 		}
 		participantes.get(participante).add(inicio);
 		participantes.get(participante).add(fim);
