@@ -9,7 +9,7 @@ public class MarcadorDeReuniao {
 	private final Map<String, ArrayList<LocalDateTime>> participantes = new TreeMap<>();
 	private final DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
-	// construtor básico
+	// construtor nulo
 	public MarcadorDeReuniao() {}
 
 	// construtor

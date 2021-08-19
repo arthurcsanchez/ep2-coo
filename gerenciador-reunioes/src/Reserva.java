@@ -6,8 +6,10 @@ public class Reserva {
 	private LocalDateTime inicio;
 	private LocalDateTime fim;
 
+	// construtor nulo
 	public Reserva() {}
 
+	// construtor
 	public Reserva(Sala sala, LocalDateTime inicio, LocalDateTime fim) {
 		this.sala = sala;
 		this.inicio = inicio;

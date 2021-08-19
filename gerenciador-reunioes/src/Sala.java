@@ -10,10 +10,12 @@ public class Sala {
 	private String observacoes;
 	private final List<Reserva> listaReservas;
 
+	// construtor nulo
 	public Sala() {
 		listaReservas = new ArrayList<>();
 	}
 
+	// construtor
 	public Sala(String nome, int capacidade, String observacoes) {
 		this.nome = nome;
 		this.capacidade = capacidade;
